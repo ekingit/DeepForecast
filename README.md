@@ -93,19 +93,19 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 plot1
 
-$input = data[i:i+14]$,  $\forall i\in len(data)-seq\_ len-7+1$
+$input = data[i:i+14]$,  $\forall i\in len(data)-\text{seq_len}-7+1$
 
 model = Autoregressive LSTM
 
-$model: (batch\_ size\times 14) \rightarrow (batch\_ size\times 7)$
+$model: (\text{batch_size}\times 14) \rightarrow (\text{batch_size}\times 7)$
 
 loss = MSE Loss
 
-$loss:(batch\_ size\times 7)\times (batch\_ size\times 7)\rightarrow 1$
+$loss:(\text{batch_size}\times 7)\times (\text{batch_size}\times 7)\rightarrow 1$
 
 table2
 
-- Optimal parameters: 
+**Optimal parameters:**
 
 * seq_len = 14
 
@@ -130,7 +130,7 @@ $loss: len(sine)\times len(data)\rightarrow 1$
 
 table 3
 
-**- Optimal parameters: **
+**Optimal parameters:**
 
 * hidden size = 10
 
