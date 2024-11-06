@@ -21,7 +21,7 @@ To address these issues, Long Short-Term Memory (LSTM) networks were introduced 
 
 ## Derivations
 
-nn.RNN and nn.LSTM were implemented from scratch to explore their underlying mechanics and compare outputs with PyTorch's implementations. By closely replicating the structure of these models, consistent results were observed between the custom implementations and those provided by nn.RNN and nn.LSTM. This comparison allowed for a deeper understanding of how sequential dependencies are handled by these models.
+[nn.RNN](https://github.com/ekingit/DeepForecast/blob/main/derivations/1.Derivation_of_RNN.ipynb) and [nn.LSTM](https://github.com/ekingit/DeepForecast/blob/main/derivations/2.Derivation_of_LSTM.ipynb) were implemented from scratch to explore their underlying mechanics and compare outputs with PyTorch's implementations. By closely replicating the structure of these models, consistent results were observed between the custom implementations and those provided by nn.RNN and nn.LSTM. This comparison allowed for a deeper understanding of how sequential dependencies are handled by these models.
 
 ## Synthetic Data
 
@@ -57,7 +57,7 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
 
 ## Weather Application
 
-**Data** [Dataset]((https://github.com/florian-huber/weather_prediction_dataset)) contains daily recorded weather data from 2000 to 2010 for 18 European cities. For this project, we focus on the maximum temperature in Basel.
+**Data** [Dataset](https://github.com/florian-huber/weather_prediction_dataset) contains daily recorded weather data from 2000 to 2010 for 18 European cities. For this project, we focus on the maximum temperature in Basel.
 
 **Aim** Develop a model to predict 7-day weather forecasts from scratch.
 
@@ -93,7 +93,7 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 plot1
 
-$input = data[i:i+14]$,  $\forall i\in len(data)-\text{seq_len}-7+1$
+$input = data[i:i+14]$,  $\forall i\in$ len(data)-seq_len-7+1
 
 model = Autoregressive LSTM
 
@@ -101,7 +101,7 @@ $model: (\text{batch_size}\times 14) \rightarrow (\text{batch_size}\times 7)$
 
 loss = MSE Loss
 
-$loss:(\text{batch_size}\times 7)\times (\text{batch_size}\times 7)\rightarrow 1$
+$loss:(batch_ size \times 7)\times (batch_ size\times 7)\rightarrow 1$
 
 table2
 
