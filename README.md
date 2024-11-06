@@ -91,17 +91,17 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
  - This model uses an autoregressive approach to sequential prediction. Given the past seq_len values, we predict the next value, then iteratively use this prediction to forecast the following 7 days. (See Figure plot1 for illustration.)
 
-plot1
+[plot1](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_LSTM_description.png)
 
 $input = data[i:i+14]$,  $\forall i\in$ len(data)-seq_len-7+1
 
 model = Autoregressive LSTM
 
-$model: (\text{batch_size}\times 14) \rightarrow (\text{batch_size}\times 7)$
+model: (batch_size$\times 14$) $\rightarrow$ (batch_size$\times 7$)
 
 loss = MSE Loss
 
-$loss:(batch_ size \times 7)\times (batch_ size\times 7)\rightarrow 1$
+loss: (batch_ size $\times 7$)$\times$ (batch_ size$\times 7$)$\rightarrow 1$
 
 table2
 
