@@ -93,11 +93,15 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 plot1
 
-$input = data[i:i+14]$  $\forall i\in len(data)-seq_len-7+1$
+$input = data[i:i+14]$,  $\forall i\in len(data)-seq\_ len-7+1$
+
 model = Autoregressive LSTM
-$model: (batch_size\times 14) \rightarrow (batch_size\times 7)$
+
+$model: (batch\_ size\times 14) \rightarrow (batch\_ size\times 7)$
+
 loss = MSE Loss
-$loss:(batch_size\times 7)\times (batch_size\times 7)\rightarrow 1$
+
+$loss:(batch\_ size\times 7)\times (batch\_ size\times 7)\rightarrow 1$
 
 table2
 
@@ -110,42 +114,58 @@ table2
 * number of hidden layers = 3
 
 
-2. Global Model
+**2. Global Model**
 
 - This model uses a sine wave as input to train an RNN for predicting future values in a weather dataset. By capturing the periodic behavior of the sine wave, the model learns general seasonal patterns that aid in forecasting the weather data.
 
 input = Sine wave with the period 365, len(input) = len(data)
+
 model = RNN
+
 $model: len(sine) \rightarrow len(data)$
+
 loss = MSE Loss
+
 $loss: len(sine)\times len(data)\rightarrow 1$
 
 table 3
 
-- Optimal parameters: 
+**- Optimal parameters: **
+
 * hidden size = 10
 
 * hidden layers = 3
 
-3. Hybrid Model
+**3. Hybrid Model**
 
 - This model combines long-range forecasting with a residual noise correction to improve weather predictions.
 
 - Use the global model to generate long-range predictions based on a sine wave. This captures the periodic seasonal pattern in the data.
 
-- Calculate the difference between the long-range predictions and the original weather data to isolate the residuals, or "noise." $$X_{noise} = X_{raw} - X_{periodic}$$ where $X_{raw} is the actual data and $X_{periodic} is the predicted data from the global model.
+X_raw = weather_data
+
+X_sine = sine wave with period 365
+
+pretrain_model = RNN
+
+pretrain_model: X_sine --> weather_data
+
+- Calculate the difference between the long-range predictions and the original weather data to isolate the residuals, or "noise."
+
+X_periodic = pretrain_model(X_sine)
+
+X_noise = X_raw - X_periodic
 
 - Train an autoregressive LSTM model on the extracted noise to correct for short-term deviations.
 
-
-$$
-X_raw = weather_data
-X_sine = sine wave with period 365
-pretrain_model = RNN
-pretrain_model: X_sine --> weather_data
-
-X_periodic = pretrain_model(X_sine)
-X_noise = X_raw - X_periodic
 model = LSTM with batches seq_len=14
+
 model: (batch_sizex14) of X_noise --> (batch_sizex7) of X_noise
-$$
+
+
+
+
+
+
+
+
