@@ -91,7 +91,7 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
  - This model uses an autoregressive approach to sequential prediction. Given the past seq_len values, we predict the next value, then iteratively use this prediction to forecast the following 7 days. (See Figure plot1 for illustration.)
 
-[plot1](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_LSTM_description.png)
+![plot1](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_LSTM_description.png)
 
 $input = data[i:i+14]$,  $\forall i\in$ len(data)-seq_len-7+1
 
