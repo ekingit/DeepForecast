@@ -2,12 +2,12 @@
 
 ## Table of Contents 
 
-- [Introduction](#0.-introduction)
+- [Introduction](#introduction)
 - [Derivations](#derivations)
 - [Synthetic Data](#synthetic-data)
 - [Weather Application](#weather-application)
 
-## 0. Introduction
+## Introduction
 
 This repository focuses on analyzing sequential data using deep learning models for sequence prediction, with a particular emphasis on recurrent models applied specifically to weather data.
 
@@ -57,45 +57,43 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
 
 ## Weather Application
 
-- Weather Data
+**Data** [Dataset]((https://github.com/florian-huber/weather_prediction_dataset)) contains daily recorded weather data from 2000 to 2010 for 18 European cities. For this project, we focus on the maximum temperature in Basel.
 
-[dataset](https://github.com/florian-huber/weather_prediction_dataset): This dataset contains daily recorded weather data from 2000 to 2010 for 18 European cities. For this project, we focus on the maximum temperature in Basel.
+**Aim** Develop a model to predict 7-day weather forecasts from scratch.
 
-Aim: Develop a model to predict 7-day weather forecasts from scratch.
-
-Challange: Identifying the right model architecture and hyperparameters to effectively minimize prediction loss.
+**Challange** Identifying the right model architecture and hyperparameters to effectively minimize prediction loss.
 
 
-Approach: 
+**Approach:** 
 
-1. Local Model
+*1. Local Model*
 
  - Train an autoregressive LSTM model that uses previous k-days data predict the next 7 days. 
  - Experiment with key hyperparameters, including input sequence length, hidden layer size, and the number of hidden layers, to identify the optimal configuration.
 
-2. Global Model
+*2. Global Model*
 
  - Develop a recurrent model designed for long-range forecasting by leveraging extended historical data.
  - Conduct a thorough search for the best-performing hyperparameters to improve the accuracy of long-term predictions.
  
-3. Hybrid Model
+*3. Hybrid Model*
 
  - Use the global model to generate long-range weather predictions.
  - Refine these predictions with the local model to achieve greater accuracy for the immediate 7-day forecast.
 
  
 
-Results: Table1: Local Model, Hybrid Model 7 days prediction MSE
+**Results** Table1: Local Model, Hybrid Model 7 days prediction MSE
 
-0. Dataset splitted into train, validation, test: 8 years, 1 year and 1 year.
+The dataset is split into training, validation, and test sets, covering 8 years, 1 year, and 1 year, respectively.
 
-1. Local Model
+**1. Local Model**
 
  - This model uses an autoregressive approach to sequential prediction. Given the past seq_len values, we predict the next value, then iteratively use this prediction to forecast the following 7 days. (See Figure plot1 for illustration.)
 
 plot1
 
-$input = data[i:i+14]$  #\forall i\in len(data)-seq_len-7+1$
+$input = data[i:i+14]$  $\forall i\in len(data)-seq_len-7+1$
 model = Autoregressive LSTM
 $model: (batch_size\times 14) \rightarrow (batch_size\times 7)$
 loss = MSE Loss
