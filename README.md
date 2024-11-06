@@ -2,12 +2,12 @@
 
 ## Table of Contents 
 
-- [Introduction](#introduction)
+- [Introduction](#0.-introduction)
 - [Derivations](#derivations)
 - [Synthetic Data](#synthetic-data)
 - [Weather Application](#weather-application)
 
-## Introduction
+## 0. Introduction
 
 This repository focuses on analyzing sequential data using deep learning models for sequence prediction, with a particular emphasis on recurrent models applied specifically to weather data.
 
