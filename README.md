@@ -93,21 +93,23 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 **[1. Local Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/1_0_LSTM_7_days_prediction.ipynb)**
 
- - This model uses an autoregressive approach to sequential prediction. Given the past seq_len values, we predict the next value, then iteratively use this prediction to forecast the following 7 days. (See Figure plot1 for illustration.)
+ - This model uses an autoregressive approach for sequential prediction. The data is segmented with a window size of `seq_len + 7`, with each segment split into two parts: the first seq_len values serve as inputs, while the next 7 values are the target outputs. For each seq_len values, the model predicts the next value, then iteratively uses this prediction to forecast the following 7 days. (See Figure below for illustration.)
+
 
 ![plot1](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_LSTM_description.png)
 
-input = data[i:i+14],  $\forall i\in$ len(data)-seq_len-7+1
+`input shape = stack(data[i:i+14])`,  $\forall i\in N$ where N = len(data)-seq_len-7+1
 
-model = Autoregressive LSTM
+`model = Autoregressive LSTM`
 
-model: (batch_size x seq_len) $\rightarrow$ (batch_size x 7)
+`model: (batch_size x seq_len) $\rightarrow$ (batch_size x 7)`
 
 loss = MSE Loss
 
-loss: (batch_size x 7)$\times$ (batch_size x 7) $\rightarrow$ 1
+loss: (batch_size x 7) x (batch_size x 7) $\rightarrow$ 1
 
 **[Optimal parameters](https://github.com/ekingit/DeepForecast/blob/main/weather_application/1_1_Parameter_opt.ipynb):**
+
 ![table2](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_param_table.png)
 
 * seq_len = 14
