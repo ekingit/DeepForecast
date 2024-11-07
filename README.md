@@ -27,11 +27,11 @@ To address these issues, Long Short-Term Memory (LSTM) networks were introduced 
 
 RNN, LSTM, and GRU models were applied to synthetic data to gain insights into the strengths and weaknesses of each architecture. By using controlled datasets, it was possible to observe how each model performs under different conditions, highlighting their unique capabilities and limitations. This approach provided a clearer understanding of where each model excels or struggles, offering valuable perspective on their suitability for various types of sequential data.
 
-### Data = Sine
+### [Data = Sine](https://github.com/ekingit/DeepForecast/tree/main/synthetic_data/sinus_example)
 
 **Models**
 
-`1.MLP`: Sequence of length (1000) divided into seq_len=4 chunks to produce 996 examples are used to predict next value.
+[`1.MLP`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_example/1.MLP.ipynb): Sequence of length (1000) divided into seq_len=4 chunks to produce 996 examples are used to predict next value.
 
 `2.RNN_analyzing_parameters`: An initial impulse `[1, 0, ..., 0]` is given to the RNN model and data is used in the loss function. Model parameters and the learning cycle are analyzed.
 
@@ -45,7 +45,7 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
 
 `7.RNN_with_batches`: Sequence of length (1000) divided into seq_len=150 chunks to produce 850 examples are fed into the model with batches (of size 100) to predict next value.
 
-### Data = Sine with noise
+### [Data = Sine with noise](https://github.com/ekingit/DeepForecast/tree/main/synthetic_data/sinus_w_noise)
 
 `1.GRU`: An initial impulse `[1, 0, ..., 0]` is given to the GRU model and data is given to the loss function.
 
@@ -101,7 +101,7 @@ model: (batch_size$\times 14$) $\rightarrow$ (batch_size$\times 7$)
 
 loss = MSE Loss
 
-loss: (batch_ size $\times 7$)$\times$ (batch_ size$\times 7$)$\rightarrow 1$
+loss: (batch_ size $\times$ 7)$\times$ (batch_ size$\times 7$)$\rightarrow 1$
 
 table2
 
