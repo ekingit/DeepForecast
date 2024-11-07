@@ -1,4 +1,4 @@
-# Sequential Data Modeling Weather Prediction
+# Sequential Data, Modeling Weather Prediction
 
 ## Table of Contents 
 
@@ -57,12 +57,13 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
 
 ## [Weather Application](https://github.com/ekingit/DeepForecast/tree/main/weather_application)
 
+### Summary
+
 **Data:** [Dataset](https://github.com/florian-huber/weather_prediction_dataset) contains daily recorded weather data from 2000 to 2010 for 18 European cities. For this project, we focus on the maximum temperature in Basel.
 
 **Aim:** Develop a model to predict 7-day weather forecasts from scratch.
 
 **Challange:** Identifying the right model architecture and hyperparameters to effectively minimize prediction loss.
-
 
 **Approach:** 
 
@@ -81,31 +82,33 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
  - Use the global model to generate long-range weather predictions.
  - Refine these predictions with the local model to achieve greater accuracy for the immediate 7-day forecast.
 
- 
+**Results:** The local model, hybrid model, and moving average are compared on the test set using mean squared error (MSE) as the loss function. Combining the local model with a periodicity of one year (365 days) resulted in improved model performance.
+![Table1: Local Model, Hybrid Model, Moving Avarage - 7 days prediction MSE](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/daily_loss.png)
 
-**Results** Table1: Local Model, Hybrid Model 7 days prediction MSE
+
+
+### Models and Results
 
 The dataset is split into training, validation, and test sets, covering 8 years, 1 year, and 1 year, respectively.
 
-**1. Local Model**
+**[1. Local Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/1_0_LSTM_7_days_prediction.ipynb)**
 
  - This model uses an autoregressive approach to sequential prediction. Given the past seq_len values, we predict the next value, then iteratively use this prediction to forecast the following 7 days. (See Figure plot1 for illustration.)
 
 ![plot1](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_LSTM_description.png)
 
-$input = data[i:i+14]$,  $\forall i\in$ len(data)-seq_len-7+1
+input = data[i:i+14],  $\forall i\in$ len(data)-seq_len-7+1
 
 model = Autoregressive LSTM
 
-model: (batch_size$\times 14$) $\rightarrow$ (batch_size$\times 7$)
+model: (batch_size x seq_len) $\rightarrow$ (batch_size x 7)
 
 loss = MSE Loss
 
-loss: (batch_ size $\times$ 7)$\times$ (batch_ size$\times 7$)$\rightarrow 1$
+loss: (batch_size x 7)$\times$ (batch_size x 7) $\rightarrow$ 1
 
-table2
-
-**Optimal parameters:**
+**[Optimal parameters](https://github.com/ekingit/DeepForecast/blob/main/weather_application/1_1_Parameter_opt.ipynb):**
+![table2](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_param_table.png)
 
 * seq_len = 14
 
@@ -114,7 +117,7 @@ table2
 * number of hidden layers = 3
 
 
-**2. Global Model**
+**[2. Global Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/2_0_Periodic_RNN.ipynb)**
 
 - This model uses a sine wave as input to train an RNN for predicting future values in a weather dataset. By capturing the periodic behavior of the sine wave, the model learns general seasonal patterns that aid in forecasting the weather data.
 
@@ -128,15 +131,15 @@ loss = MSE Loss
 
 $loss: len(sine)\times len(data)\rightarrow 1$
 
-table 3
+![table 3](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/periodic_param_table.png)
 
-**Optimal parameters:**
+**[Optimal parameters](https://github.com/ekingit/DeepForecast/blob/main/weather_application/2_1_Hyperparameter_opt.ipynb):**
 
 * hidden size = 10
 
 * hidden layers = 3
 
-**3. Hybrid Model**
+**[3. Hybrid Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/3_hybrid.ipynb)**
 
 - This model combines long-range forecasting with a residual noise correction to improve weather predictions.
 
@@ -146,9 +149,9 @@ X_raw = weather_data
 
 X_sine = sine wave with period 365
 
-pretrain_model = RNN
+pretrain_model = RNN with hidden_size=10, hidden_layers=3
 
-pretrain_model: X_sine --> weather_data
+pretrain_model: X_sine $\rightarrow$ weather_data
 
 - Calculate the difference between the long-range predictions and the original weather data to isolate the residuals, or "noise."
 
@@ -158,9 +161,9 @@ X_noise = X_raw - X_periodic
 
 - Train an autoregressive LSTM model on the extracted noise to correct for short-term deviations.
 
-model = LSTM with batches seq_len=14
+model = LSTM with seq_len=14, hidden_size=20, num_layers=3
 
-model: (batch_sizex14) of X_noise --> (batch_sizex7) of X_noise
+model: (batch_size x 14) of X_noise --> (batch_size x 7) of X_noise
 
 
 
