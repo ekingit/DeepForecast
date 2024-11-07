@@ -5,7 +5,6 @@ import torch
 
 class Data(): 
     def __init__(self, p, T, tau=0): #Create sinus wave of length T with period 2pi/p with noise tau
-        self.T = T
         self.time = torch.arange(0, T, dtype=torch.float32)
         self.x = torch.sin(p* self.time) + torch.randn(T) * tau
 

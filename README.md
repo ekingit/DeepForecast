@@ -121,7 +121,7 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 **[2. Global Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/2_0_Periodic_RNN.ipynb)**
 
-- This model uses a sine wave as input to train an RNN for predicting future values in a weather dataset. By capturing the periodic behavior of the sine wave, the model learns general seasonal patterns that aid in forecasting the weather data.
+- This model uses a sine wave as input to train an RNN for predicting future values in a weather dataset. By capturing the periodic behavior of the data, the model learns general seasonal patterns that aid in forecasting the weather data.
 
 `input = Sine wave with the period 365, len(input) = len(data)`
 
@@ -129,7 +129,7 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 `model: len(sine) --> len(data)`
 
-`loss = MSE Loss`
+`loss = Mean Squared Error`
 
 `loss: len(sine) x len(data) --> 1`
 
