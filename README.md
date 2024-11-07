@@ -98,47 +98,48 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 ![plot1](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_LSTM_description.png)
 
-`input shape = stack(data[i:i+14])`,  $\forall i\in N$ where N = len(data)-seq_len-7+1
+`input shape = stack(data[i:i+14])`,  $\forall i\in N$ where `N = len(data)-seq_len-7+1`
 
 `model = Autoregressive LSTM`
 
-`model: (batch_size x seq_len) $\rightarrow$ (batch_size x 7)`
+`model: (batch_size x seq_len) --> (batch_size x 7)`
 
-loss = MSE Loss
-`loss: (batch_size x 7) x (batch_size x 7)` $\rightarrow$ `1`
+`loss = Mean Squared Error`
+
+`loss: (batch_size x 7) x (batch_size x 7) --> 1`
 
 **[Optimal parameters](https://github.com/ekingit/DeepForecast/blob/main/weather_application/1_1_Parameter_opt.ipynb):**
 
 ![table2](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_param_table.png)
 
-* seq_len = 14
+* `seq_len = 14`
 
-* hidden size = 20
+* `hidden size = 20`
 
-* number of hidden layers = 3
+* `number of hidden layers = 3`
 
 
 **[2. Global Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/2_0_Periodic_RNN.ipynb)**
 
 - This model uses a sine wave as input to train an RNN for predicting future values in a weather dataset. By capturing the periodic behavior of the sine wave, the model learns general seasonal patterns that aid in forecasting the weather data.
 
-input = Sine wave with the period 365, len(input) = len(data)
+`input = Sine wave with the period 365, len(input) = len(data)`
 
-model = RNN
+`model = RNN`
 
-$model: len(sine) \rightarrow len(data)$
+`model: len(sine) --> len(data)`
 
-loss = MSE Loss
+`loss = MSE Loss`
 
-$loss: len(sine)\times len(data)\rightarrow 1$
+`loss: len(sine) x len(data) --> 1`
 
 ![table 3](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/periodic_param_table.png)
 
 **[Optimal parameters](https://github.com/ekingit/DeepForecast/blob/main/weather_application/2_1_Hyperparameter_opt.ipynb):**
 
-* hidden size = 10
+* `hidden size = 10`
 
-* hidden layers = 3
+* `hidden layers = 3`
 
 **[3. Hybrid Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/3_hybrid.ipynb)**
 
@@ -146,25 +147,25 @@ $loss: len(sine)\times len(data)\rightarrow 1$
 
 - Use the global model to generate long-range predictions based on a sine wave. This captures the periodic seasonal pattern in the data.
 
-X_raw = weather_data
+`X_raw = weather_data`
 
-X_sine = sine wave with period 365
+`X_sine = sine wave with period 365`
 
-pretrain_model = RNN with hidden_size=10, hidden_layers=3
+`pretrain_model = RNN with hidden_size=10, hidden_layers=3`
 
-pretrain_model: X_sine $\rightarrow$ weather_data
+`pretrain_model: X_sine --> weather_data`
 
 - Calculate the difference between the long-range predictions and the original weather data to isolate the residuals, or "noise."
 
-X_periodic = pretrain_model(X_sine)
+`X_periodic = pretrain_model(X_sine)`
 
-X_noise = X_raw - X_periodic
+`X_noise = X_raw - X_periodic`
 
 - Train an autoregressive LSTM model on the extracted noise to correct for short-term deviations.
 
-model = LSTM with seq_len=14, hidden_size=20, num_layers=3
+`model = LSTM with seq_len=14, hidden_size=20, num_layers=3`
 
-model: (batch_size x 14) of X_noise --> (batch_size x 7) of X_noise
+`model: (batch_size x 14) of X_noise --> (batch_size x 7) of X_noise`
 
 
 
