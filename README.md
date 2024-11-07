@@ -105,8 +105,7 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 `model: (batch_size x seq_len) $\rightarrow$ (batch_size x 7)`
 
 loss = MSE Loss
-
-loss: (batch_size x 7) x (batch_size x 7) $\rightarrow$ 1
+`loss: (batch_size x 7) x (batch_size x 7)` $\rightarrow$ `1`
 
 **[Optimal parameters](https://github.com/ekingit/DeepForecast/blob/main/weather_application/1_1_Parameter_opt.ipynb):**
 
