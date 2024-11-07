@@ -108,6 +108,8 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 `loss: (batch_size x 7) x (batch_size x 7) --> 1`
 
+**Remark:** This model captures local dependencies by analyzing patterns within a 15-day window to predict the next 7 days. It does not account for global dependencies, such as seasonal variations (e.g., hotter temperatures in summer and colder in winter) or the specific day of the year.
+
 **[Optimal parameters](https://github.com/ekingit/DeepForecast/blob/main/weather_application/1_1_Parameter_opt.ipynb):**
 
 ![table2](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_param_table.png)
@@ -132,6 +134,8 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 `loss = Mean Squared Error`
 
 `loss: len(sine) x len(data) --> 1`
+
+**Remark:** This model captures only global dependencies, as it does not use actual data inputs. Unlike the local LSTM model, it does not capture short-term patterns or local dependencies.
 
 ![table 3](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/periodic_param_table.png)
 
@@ -167,9 +171,7 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 `model: (batch_size x 14) of X_noise --> (batch_size x 7) of X_noise`
 
-
-
-
+**Remark:** This model captures both global/periodic dependencies and local patterns through separate models. However, it cannot capture correlated dependencies—such as seasonal differences in daily variability, where consecutive days might differ more in winter than in summer.
 
 
 
