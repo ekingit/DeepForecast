@@ -33,35 +33,35 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
 
 [`1.MLP`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_example/1.MLP.ipynb): Sequence of length (1000) divided into seq_len=4 chunks to produce 996 examples are used to predict next value.
 
-`2.RNN_analyzing_parameters`: An initial impulse `[1, 0, ..., 0]` is given to the RNN model and data is used in the loss function. Model parameters and the learning cycle are analyzed.
+[`2.RNN_analyzing_parameters`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_example/2.RNN_analyzing_parameters.ipynb): An initial impulse `[1, 0, ..., 0]` is given to the RNN model and data is used in the loss function. Model parameters and the learning cycle are analyzed.
 
-`3.Solution_with_state_spaces`: Use a state-space representation and coordinate transformation to produce the sine wave. Results are compared with that of RNN.
+[`3.Solution_with_state_spaces`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_example/3.Solution_w_state_spaces.ipynb): Use a state-space representation and coordinate transformation to produce the sine wave. Results are compared with that of RNN.
   
-`4.LSTM`: An initial impulse `[1, 0, ..., 0]` is given to the LSTM model and data is given to the loss function.
+[`4.LSTM`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_example/4.LSTM.ipynb): An initial impulse `[1, 0, ..., 0]` is given to the LSTM model and data is given to the loss function.
 
-`5.GRU`: An initial impulse `[1, 0, ..., 0]` is given to the GRU model and data is given to the loss function.
+[`5.GRU`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_example/5.GRU.ipynb): An initial impulse `[1, 0, ..., 0]` is given to the GRU model and data is given to the loss function.
 
-`6.Autoregressive_RNN`: Teacher forcing and closed loop methods for learning are discussed. A part (65 of 100) of data is given to the model to predict next steps. The predictions, then, used to make further predictions. 
+[`6.Autoregressive_RNN`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_example/6.RNN_teacher_forcing%2Bclosed%20loop.ipynb): Teacher forcing and closed loop methods for learning are discussed. A part (65 of 100) of data is given to the model to predict next steps. The predictions, then, used to make further predictions. 
 
-`7.RNN_with_batches`: Sequence of length (1000) divided into seq_len=150 chunks to produce 850 examples are fed into the model with batches (of size 100) to predict next value.
+[`7.RNN_batched`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_example/7.RNN_teacher_forcing_w_batches.ipynb): Sequence of length (1000) divided into seq_len=150 chunks to produce 850 examples are fed into the model with batches (of size 100) to predict next value.
 
 ### [Data = Sine with noise](https://github.com/ekingit/DeepForecast/tree/main/synthetic_data/sinus_w_noise)
 
-`1.GRU`: An initial impulse `[1, 0, ..., 0]` is given to the GRU model and data is given to the loss function.
+[`1.GRU`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_w_noise/1.GRU.ipynb): An initial impulse `[1, 0, ..., 0]` is given to the GRU model and data is given to the loss function.
 
-`2.LSTM_with_batches`: Sequence of length (1000) divided into seq_len=150 chunks to produce 850 examples are fed into the LSTM model with batches (of size 100) to predict next value.
+[`2.LSTM_batched](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_w_noise/2.LSTM_with_batch.ipynb)`: Sequence of length (1000) divided into seq_len=150 chunks to produce 850 examples are fed into the LSTM model with batches (of size 100) to predict next value.
 
-`3.RNN+LSTM`:RNN model is used to predict data without noise. This prediction is used to decompose data into sine and noise components. Noise is predicted with an LSTM model.
+[`3.RNN+LSTM`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_w_noise/3.RNN%2BLSTM.ipynb):RNN model is used to predict data without noise. This prediction is used to decompose data into sine and noise components. Noise is predicted with an LSTM model.
 
-`4.RNN+LSTM_transfer_learning`: Just like before, RNN model is used to predict data without noise. Then, LSTM model first learns the simpler model and after that, LSTM learns noisy data. We do this because LSTM fails to learn noisy data right away. That's why we learn a simpler data, and use it as initialization of the more complex data. 
+[`4.RNN+LSTM_transfer_learning`](https://github.com/ekingit/DeepForecast/blob/main/synthetic_data/sinus_w_noise/4.Transfer_Learning.ipynb): Just like before, RNN model is used to predict data without noise. Then, LSTM model first learns the simpler model and after that, LSTM learns noisy data. We do this because LSTM fails to learn noisy data right away. That's why we learn a simpler data, and use it as initialization of the more complex data. 
 
-## Weather Application
+## [Weather Application](https://github.com/ekingit/DeepForecast/tree/main/weather_application)
 
-**Data** [Dataset](https://github.com/florian-huber/weather_prediction_dataset) contains daily recorded weather data from 2000 to 2010 for 18 European cities. For this project, we focus on the maximum temperature in Basel.
+**Data:** [Dataset](https://github.com/florian-huber/weather_prediction_dataset) contains daily recorded weather data from 2000 to 2010 for 18 European cities. For this project, we focus on the maximum temperature in Basel.
 
-**Aim** Develop a model to predict 7-day weather forecasts from scratch.
+**Aim:** Develop a model to predict 7-day weather forecasts from scratch.
 
-**Challange** Identifying the right model architecture and hyperparameters to effectively minimize prediction loss.
+**Challange:** Identifying the right model architecture and hyperparameters to effectively minimize prediction loss.
 
 
 **Approach:** 
