@@ -69,7 +69,7 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
 
 *1. Local Model*
 
- - Train an autoregressive LSTM model that uses previous k-days data predict the next 7 days. 
+ - Train an autoregressive LSTM model that uses previous k-days data to predict the next 7 days. 
  - Experiment with key hyperparameters, including input sequence length, hidden layer size, and the number of hidden layers, to identify the optimal configuration.
 
 *2. Global Model*
@@ -84,7 +84,7 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
 
  *4. Regularized Local Model*
 
- - Enhance the complexity and robustness of the local LSTM by introducing additional linear layers, layer normalization, and residual blocks.
+ - Enhance the complexity and robustness of the local LSTM by introducing additional linear layers together with layer normalization, and residual maps.
 
 **Results:** The local model, hybrid model, regularized local model and moving average are compared on the test set using mean squared error (MSE) as the loss function. Combining the local model with a periodicity of one year (365 days) resulted in improved model performance.
 ![Table1: Local Model, Hybrid Model, Moving Avarage - 7 days prediction MSE](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/daily_loss.png)
@@ -102,7 +102,7 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 
 ![plot1](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/local_LSTM_description.png)
 
-`input shape = stack(data[i:i+14])`,  $\forall i\in N$ where `N = len(data)-seq_len-7+1`
+`input = stack(data[i:i+14])`,  $\forall i\in N$ where `N = len(data)-seq_len-7+1`
 
 `model = Autoregressive LSTM`
 
