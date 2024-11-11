@@ -178,7 +178,7 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 **Remark:** This model captures both global/periodic dependencies and local patterns through separate models. However, it cannot capture correlated dependencies—such as seasonal differences in daily variability, where consecutive days might differ more in winter than in summer.
 
 
-**[4. Regularized Local Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/3_hybrid.ipynb)**?
+**[4. Regularized Local Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/4_reg_LSTM.ipynb)**
 
  Finally, we employ a sophisticated architecture—a local LSTM integrated with a residual block—to generate 7-day forecasts for comparison. This architecture is adapted with minor modifications from Luke Ditria’s work, as seen in his GitHub [repository](https://github.com/LukeDitria/pytorch_tutorials/blob/main/section12_sequential/solutions/Pytorch3_Autoregressive_LSTM.ipynb) and explained in detail in his [YouTube tutorial]((https://www.youtube.com/watch?v=lyUT6dOARGs)).
   
