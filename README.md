@@ -65,7 +65,7 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
 
 **Challange:** Identifying the right model architecture and hyperparameters to effectively minimize prediction loss.
 
-**Approach:** 
+**Models:** 
 
 *1. Local Model*
 
@@ -82,7 +82,11 @@ RNN, LSTM, and GRU models were applied to synthetic data to gain insights into t
  - Use the global model to generate long-range weather predictions.
  - Refine these predictions with the local model to achieve greater accuracy for the immediate 7-day forecast.
 
-**Results:** The local model, hybrid model, and moving average are compared on the test set using mean squared error (MSE) as the loss function. Combining the local model with a periodicity of one year (365 days) resulted in improved model performance.
+ *4. Regularized Local Model*
+
+ - Enhance the complexity and robustness of the local LSTM by introducing additional linear layers, layer normalization, and residual blocks.
+
+**Results:** The local model, hybrid model, regularized local model and moving average are compared on the test set using mean squared error (MSE) as the loss function. Combining the local model with a periodicity of one year (365 days) resulted in improved model performance.
 ![Table1: Local Model, Hybrid Model, Moving Avarage - 7 days prediction MSE](https://github.com/ekingit/DeepForecast/blob/main/weather_application/Results/daily_loss.png)
 
 
@@ -174,5 +178,25 @@ The dataset is split into training, validation, and test sets, covering 8 years,
 **Remark:** This model captures both global/periodic dependencies and local patterns through separate models. However, it cannot capture correlated dependencies—such as seasonal differences in daily variability, where consecutive days might differ more in winter than in summer.
 
 
+**[4. Regularized Local Model](https://github.com/ekingit/DeepForecast/blob/main/weather_application/3_hybrid.ipynb)**?
 
+ Finally, we employ a sophisticated architecture—a local LSTM integrated with a residual block—to generate 7-day forecasts for comparison. This architecture is adapted with minor modifications from Luke Ditria’s work, as seen in his GitHub [repository](https://github.com/LukeDitria/pytorch_tutorials/blob/main/section12_sequential/solutions/Pytorch3_Autoregressive_LSTM.ipynb) and explained in detail in his [YouTube tutorial]((https://www.youtube.com/watch?v=lyUT6dOARGs)).
+  
+- This model incorporates linear layers that compress and decompress the input before applying the local LSTM. The output of the local LSTM then passes through a residual block to produce the next-day predictions. Originally introduced in computer vision, the residual block regularizes the model during backpropagation by mapping $x\mapsto f(x)+x$ where $f$ represents multiple layers in a deep neural network. This approach effectively addresses the vanishing gradient problem.
+
+
+ 1. The data is divided into segments with a window size of seq_len + 7, allowing seq_len to be used for predicting 7 days ahead, similar to the local LSTM approach.
+
+ 2. Each `batch_size` stack of `seq_len` segments is passed through two linear layers, with an ELU activation function in between, producing 64 nodes that serve as a "state space representation."
+
+ 3. These 64 nodes are then fed into the LSTM to generate state space representations for the next day's prediction.
+
+ 4. The resulting 64-dimensional state representation is passed through a residual block that first normalizes the data, then projects it onto a 32-dimensional space, and finally embeds it back into a 64-dimensional space. The original 64-dimensional input is also transformed by a square matrix and bias, and the two outputs are summed, enhancing regularization.
+
+ 5. The 64-dimensional state representation is projected onto a single dimension representing the next day's prediction.
+
+ 6. Using each day's prediction as input, the model iteratively forecasts the entire 7-day sequence.
+
+
+ **Remark:** This model incorporates multiple regularization techniques, including layer normalization and residual layers, enhancing its robustness. These features make it adaptable for application to a variety of complex systems.
 
